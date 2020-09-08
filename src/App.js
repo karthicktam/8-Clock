@@ -41,8 +41,8 @@ export default function App() {
   };
 
   // StackOverflow https://stackoverflow.com/questions/10756313/javascript-jquery-map-a-range-of-numbers-to-another-range-of-numbers
-  const scale = (num, in_min, in_max, out_min, out_max) => {
-    return (num - in_min) * ((out_max - out_min) / (in_max - in_min)) + out_min;
+  const scale = (num, in_max, out_max) => {
+    return (num / in_max) * out_max;
   };
 
   const setTimeHandler = () => {
@@ -56,14 +56,10 @@ export default function App() {
     const seconds = time.getSeconds();
 
     setHour(
-      `translate(-50%, -100%) rotate(${scale(hoursForClock, 0, 11, 0, 360)}deg)`
+      `translate(-50%, -100%) rotate(${scale(hoursForClock, 11, 360)}deg)`
     );
-    setMinute(
-      `translate(-50%, -100%) rotate(${scale(minutes, 0, 59, 0, 360)}deg)`
-    );
-    setSecond(
-      `translate(-50%, -100%) rotate(${scale(seconds, 0, 59, 0, 360)}deg)`
-    );
+    setMinute(`translate(-50%, -100%) rotate(${scale(minutes, 59, 360)}deg)`);
+    setSecond(`translate(-50%, -100%) rotate(${scale(seconds, 59, 360)}deg)`);
 
     setTime(
       `${hours < 10 ? `0${hours}` : hours} : ${
